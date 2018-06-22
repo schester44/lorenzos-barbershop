@@ -1,0 +1,21 @@
+{
+	"name": "website",
+	"version": "0.1.0",
+	"private": true,
+	"homepage": "https://schester44.github.io/lorenzo",
+	"dependencies": {
+		"gh-pages": "^1.2.0",
+		"react": "^16.4.1",
+		"react-dom": "^16.4.1",
+		"react-scripts": "1.1.4",
+		"react-scrollable-anchor": "^0.6.1",
+		"styled-components": "^3.3.3"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build",
+		"eject": "react-scripts eject"
+	}
+}
