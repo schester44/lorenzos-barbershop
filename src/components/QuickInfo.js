@@ -19,6 +19,12 @@ const QuickInfoWrapper = styled("div")`
 	width: 100%;
 	margin-top: -100px;
 
+	${props => props.mobile && `
+  		margin-top: -190px;
+	`}
+
+
+
 	${props =>
 		props.fixed &&
 		`
@@ -32,7 +38,9 @@ const QuickInfoWrapper = styled("div")`
 			  padding: 7px !important;
 			  align-items: center;
 		  }
-	`} .container {
+	`}
+	
+	.container {
 		position: relative;
 		width: 100%;
 		background: black;
@@ -132,8 +140,10 @@ class QuickInfo extends React.Component {
 		}
 	}
 
+
 	render() {
-		return <QuickInfoWrapper fixed={this.state.inverted}>
+		console.log(window.innerWidth < 768);
+		return <QuickInfoWrapper mobile={window.innerWidth < 768} fixed={this.state.inverted}>
 				<div className="container">
 					<div className="column col-3 fixed-item">
 						<div className="icon">
