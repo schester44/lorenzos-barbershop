@@ -1,9 +1,6 @@
 import React from "react"
 import styled, { keyframes } from "styled-components"
-
-import timeIcon from "../icons/_ionicons_svg_ios-time.svg"
-import timerIcon from "../icons/_ionicons_svg_ios-timer.svg"
-import locationIcon from "../icons/_ionicons_svg_md-pin.svg"
+import Icon from "./Icon"
 
 const fadeInLeft = keyframes`
   from {
@@ -22,7 +19,9 @@ const QuickInfoWrapper = styled("div")`
 	width: 100%;
 	margin-top: -100px;
 
-	${props => props.fixed && `
+	${props =>
+		props.fixed &&
+		`
   		.fixed-item {
 			  position: fixed;
 			  top: 0;
@@ -32,15 +31,8 @@ const QuickInfoWrapper = styled("div")`
 			  transform: scale(0.9) translateX(10px);
 			  padding: 7px !important;
 			  align-items: center;
-			  
-			  img {
-				  width: 35px !important;
-				  height: 35px !important;
-			  }
 		  }
-	`}
-
-	.container {
+	`} .container {
 		position: relative;
 		width: 100%;
 		background: black;
@@ -65,16 +57,11 @@ const QuickInfoWrapper = styled("div")`
 
 			.icon {
 				height: 100%;
+				margin-right: 15px;
 			}
 
 			.info {
 				height: 100%;
-			}
-
-			img {
-				width: 50px;
-				height: 50px;
-				margin-right: 15px;
 			}
 
 			ul {
@@ -130,7 +117,6 @@ class QuickInfo extends React.Component {
 	}
 
 	update = () => {
-
 		if (window.innerWidth < 768) {
 			return
 		}
@@ -147,12 +133,11 @@ class QuickInfo extends React.Component {
 	}
 
 	render() {
-		return (
-			<QuickInfoWrapper fixed={this.state.inverted}>
+		return <QuickInfoWrapper fixed={this.state.inverted}>
 				<div className="container">
 					<div className="column col-3 fixed-item">
 						<div className="icon">
-							<img src={timerIcon} alt="Wait Time" />
+							<Icon type="timer" />
 						</div>
 						<div className="info">
 							<h5>Current Wait</h5>
@@ -160,11 +145,11 @@ class QuickInfo extends React.Component {
 						</div>
 					</div>
 
-					{this.state.inverted && <div className="column col-3"></div>}
+					{this.state.inverted && <div className="column col-3" />}
 
 					<div className="column col-4">
 						<div className="icon">
-							<img src={locationIcon} alt="Wait Time" />
+							<Icon type="pin" />
 						</div>
 						<div className="info">
 							<h5>514 McKean Avenue</h5>
@@ -174,7 +159,7 @@ class QuickInfo extends React.Component {
 
 					<div className="column col-5">
 						<div className="icon">
-							<img src={timeIcon} alt="Wait Time" />
+							<Icon type="time" />
 						</div>
 						<div className="info">
 							<h5>Hours of Operation</h5>
@@ -186,7 +171,6 @@ class QuickInfo extends React.Component {
 					</div>
 				</div>
 			</QuickInfoWrapper>
-		)
 	}
 }
 
