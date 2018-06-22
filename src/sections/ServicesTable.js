@@ -8,6 +8,7 @@ const Wrapper = styled("div")`
 	align-items: center;
 	justify-content: center;
 	padding: 7em 0;
+	background: rgba(242,242,242,.8);
 
 	h1 {
 		font-weight: 400;
