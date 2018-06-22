@@ -142,7 +142,6 @@ class QuickInfo extends React.Component {
 
 
 	render() {
-		console.log(window.innerWidth < 768);
 		return <QuickInfoWrapper mobile={window.innerWidth < 768} fixed={this.state.inverted}>
 				<div className="container">
 					<div className="column col-3 fixed-item">

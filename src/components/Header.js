@@ -1,17 +1,6 @@
 import React from "react"
 import styled, { keyframes } from "styled-components"
 
-const slideDown = keyframes`
-    from {
-        top: -40px;
-        opacity: 0.5;
-    }
-
-    to {
-        to: 0;
-        opacity: 1;
-    }
-`
 
 const Wrapper = styled("div")`
 	position: fixed;
@@ -28,20 +17,34 @@ const Wrapper = styled("div")`
 		left: 0;
 		width: 100%;
 		height: 100%;
+		background: rgba(0,0,0,0.4);
 		opacity: 1;
 		z-index: -1;
 
 		${props =>
 			props.inverted &&
 			`
-		animation: ${slideDown} .2s ease forwards;
-            background: black;
+			background: black;
+			transition: background .5s ease;
         `};
 	}
 
 	ul {
 		padding: 20px;
 		list-style-type: none;
+
+		${props => props.mobile && `
+
+			width: 100%;
+			display: flex;
+			padding: 0;
+
+			li {
+				flex: 1;
+				width: 100%;
+				text-align: center;
+			}
+		`}
 
 		li {
 			display: inline;
@@ -65,12 +68,16 @@ const Wrapper = styled("div")`
 class Header extends React.Component {
 	constructor(props) {
 		super(props)
-		this.state = {}
+		this.state = {
+			isMobile: false,
+			inverted: false
+		}
 
 		this.update = this.update.bind(this)
 	}
 
 	componentDidMount() {
+		this.setState({ isMobile: window.innerWidth < 768 })
 		window.addEventListener("scroll", this.update)
 	}
 
@@ -83,18 +90,18 @@ class Header extends React.Component {
 
 		if (window.scrollY > threshold - 65) {
 			if (!this.state.inverted) {
-				this.setState({ inverted: true })
+				this.setState({ inverted: true, isMobile: window.innerWidth < 768 })
 			}
 		} else {
 			if (this.state.inverted) {
-				this.setState({ inverted: false })
+				this.setState({ inverted: false, isMobile: window.innerWidth < 768 })
 			}
 		}
 	}
 
 	render() {
 		return (
-			<Wrapper inverted={this.state.inverted}>
+			<Wrapper mobile={this.state.isMobile} inverted={this.state.inverted}>
 				<div className="background" />
 				<ul>
 					<li>
