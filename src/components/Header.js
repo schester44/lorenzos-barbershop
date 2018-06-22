@@ -1,7 +1,6 @@
 import React from "react"
 import styled, { keyframes } from "styled-components"
 
-
 const Wrapper = styled("div")`
 	position: fixed;
 	top: 0;
@@ -17,7 +16,14 @@ const Wrapper = styled("div")`
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background: rgba(0,0,0,0.4);
+		
+		
+		${props =>
+			props.mobile &&
+			`
+			background: rgba(0,0,0,0.4);
+		`} 
+		
 		opacity: 1;
 		z-index: -1;
 
@@ -33,7 +39,9 @@ const Wrapper = styled("div")`
 		padding: 20px;
 		list-style-type: none;
 
-		${props => props.mobile && `
+		${props =>
+			props.mobile &&
+			`
 
 			width: 100%;
 			display: flex;
@@ -44,9 +52,7 @@ const Wrapper = styled("div")`
 				width: 100%;
 				text-align: center;
 			}
-		`}
-
-		li {
+		`} li {
 			display: inline;
 			margin-left: 10px;
 			color: white;
