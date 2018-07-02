@@ -83,7 +83,7 @@ const ServicesTable = () => {
 						<div className="name">Regular Cuts</div>
 						<div className="prices">
 							<div className="price">Walk-In: $20</div>
-							<div className="price">Appointment: $35</div>
+							<div className="price">Appointment: $30</div>
 						</div>
 					</div>
 					<div className="description">
@@ -95,7 +95,7 @@ const ServicesTable = () => {
 					<div className="top">
 						<div className="name">Cut w/ Beard</div>
 						<div className="prices">
-							<div className="price">Walk-In: $20</div>
+							<div className="price">Walk-In: $25</div>
 							<div className="price">Appointment: $35</div>
 						</div>
 					</div>
@@ -151,7 +151,7 @@ const ServicesTable = () => {
 					<div className="top">
 						<div className="name">Designs</div>
 						<div className="prices">
-							<div className="price">Walk-In: Starting at $10</div>
+							<div className="price">Walk-In: Starting at $10 additional</div>
 							<div className="price">Appointment: Starting at $40</div>
 						</div>
 					</div>
