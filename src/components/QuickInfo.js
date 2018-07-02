@@ -150,7 +150,7 @@ class QuickInfo extends React.Component {
 						</div>
 						<div className="info">
 							<h5>Current Wait</h5>
-							<p>1h 25m</p>
+							<p>0 minutes</p>
 						</div>
 					</div>
 

@@ -12,7 +12,6 @@ const Hero = styled("div")`
 	background-image: url("./hero.jpg");
 	background-size: cover;
 	background-position: center center;
-	min-height: 750px;
 	height: 100vh;
 
 	.brand {
