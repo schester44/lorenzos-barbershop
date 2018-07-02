@@ -87,7 +87,7 @@ const ServicesTable = () => {
 						</div>
 					</div>
 					<div className="description">
-						Your standard haircut, complete with hot lather and straight razor for a crisp, clean, cut that lasts.
+						Your standard haircut complete with hot lather and straight razor for a crisp, clean, cut that lasts.
 					</div>
 				</div>
 
@@ -121,7 +121,7 @@ const ServicesTable = () => {
 						<div className="name">Seniors (55+)</div>
 						<div className="prices">
 							<div className="price">Walk-In: $15</div>
-							<div className="price">Appointment: $25</div>
+							<div className="price">Appointment: $35</div>
 						</div>
 					</div>
 					<div className="description">
