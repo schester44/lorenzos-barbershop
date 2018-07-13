@@ -8,6 +8,9 @@ import ServicesTable from "./sections/ServicesTable"
 import Hours from "./sections/Hours"
 import Header from "./components/Header"
 
+import igicon from "./instagram.png"
+import logo from "./logo.png"
+
 const Hero = styled("div")`
 	background-image: url("./hero2.jpg");
 	background-size: cover;
@@ -16,18 +19,19 @@ const Hero = styled("div")`
 
 	.brand {
 		width: 100%;
-		height: 80%;
+		height: 60%;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 	}
 
-	h1 {
-		color: white;
-		font-family: blacksword, sans-serif;
-		font-size: 18vw;
-		line-height: 1;
+	img {
+		max-width: 80vw;
+
+		@media (min-width: 1024px) {
+			max-width: 50vw;
+		}
 	}
 
 	h3 {
@@ -49,9 +53,30 @@ const Hero = styled("div")`
 	}
 `
 
+const Footer = styled("div")`
+	padding: 25px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+
+	.link {
+		font-size: 20px;
+		display: flex;
+		align-items: center;
+
+		&:not(:first-child) {
+			margin-left: 25px;
+		}
+
+		img {
+			margin-right: 10px;
+		}
+	}
+`
 class App extends Component {
 	render() {
-		return <div className="App">
+		return (
+			<div className="App">
 				<ScrollableAnchor id={"home"}>
 					<div>
 						<Header />
@@ -60,7 +85,7 @@ class App extends Component {
 
 				<Hero>
 					<div className="brand">
-						<h1>Lorenzo's</h1>
+						<img src={logo} alt="Lorenzo's" />
 					</div>
 				</Hero>
 				<QuickInfo />
@@ -76,7 +101,17 @@ class App extends Component {
 						<ServicesTable />
 					</div>
 				</ScrollableAnchor>
+
+				<Footer>
+					<a className="link" href="http://instagram.com/laeffects" target="new" title="Follow us on instagram">
+						<img src={igicon} alt="Instagram" /> @laeffects
+					</a>
+					<a className="link" href="http://instagram.com/lor3nzo22" target="new" title="Follow us on instagram">
+						<img src={igicon} alt="Instagram" /> @lor3nzo22
+					</a>
+				</Footer>
 			</div>
+		)
 	}
 }
 
