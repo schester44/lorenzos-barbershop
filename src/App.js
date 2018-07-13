@@ -9,14 +9,14 @@ import Hours from "./sections/Hours"
 import Header from "./components/Header"
 
 const Hero = styled("div")`
-	background-image: url("./hero.jpg");
+	background-image: url("./hero2.jpg");
 	background-size: cover;
 	background-position: center center;
 	height: 100vh;
 
 	.brand {
 		width: 100%;
-		height: 100%;
+		height: 80%;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -61,7 +61,6 @@ class App extends Component {
 				<Hero>
 					<div className="brand">
 						<h1>Lorenzo's</h1>
-						<h3>BARBERSHOP</h3>
 					</div>
 				</Hero>
 				<QuickInfo />
