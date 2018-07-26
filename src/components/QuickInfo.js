@@ -1,5 +1,7 @@
 import React from "react"
 import styled, { keyframes } from "styled-components"
+import axios from "axios"
+
 import Icon from "./Icon"
 
 const fadeInLeft = keyframes`
@@ -19,13 +21,11 @@ const QuickInfoWrapper = styled("div")`
 	width: 100%;
 	margin-top: -100px;
 
-	${props => props.mobile && `
-  		margin-top: -190px;
-	`}
-
-
-
 	${props =>
+		props.mobile &&
+		`
+  		margin-top: -190px;
+	`} ${props =>
 		props.fixed &&
 		`
   		.fixed-item {
@@ -111,13 +111,39 @@ const QuickInfoWrapper = styled("div")`
 class QuickInfo extends React.Component {
 	constructor(props) {
 		super(props)
-		this.state = {}
+		this.state = {
+			waitTime: "Calculating"
+		}
 
 		this.update = this.update.bind(this)
 	}
 
 	componentDidMount() {
 		window.addEventListener("scroll", this.update)
+
+		axios
+			.get(`http://localhost:3443/wait?key=1664f088c55cce2e27c0bf14ca7dce374&employeeId=1`)
+			.then(res => res.data)
+			.then(this.setWaitTime)
+	}
+
+	setWaitTime = ({ time, error }) => {
+		if (error) {
+			this.setState({ waitTime: "Error" })
+			return
+		}
+
+		if (time < 15) {
+			this.setState({ waitTime: "No Wait" })
+			return
+		}
+
+		const hours = Math.floor(time / 60)
+		const minutes = Math.floor(60 * ((time / 60) % 1))
+
+		this.setState({
+			waitTime: hours > 0 ? `${hours}hr ${minutes}mins` : `${minutes} mins`
+		})
 	}
 
 	componentWillUnmount() {
@@ -140,9 +166,9 @@ class QuickInfo extends React.Component {
 		}
 	}
 
-
 	render() {
-		return <QuickInfoWrapper mobile={window.innerWidth < 768} fixed={this.state.inverted}>
+		return (
+			<QuickInfoWrapper mobile={window.innerWidth < 768} fixed={this.state.inverted}>
 				<div className="container">
 					<div className="column col-3 fixed-item">
 						<div className="icon">
@@ -150,7 +176,7 @@ class QuickInfo extends React.Component {
 						</div>
 						<div className="info">
 							<h5>Current Wait</h5>
-							<p>0 minutes</p>
+							<p>{this.state.waitTime}</p>
 						</div>
 					</div>
 
@@ -180,6 +206,7 @@ class QuickInfo extends React.Component {
 					</div>
 				</div>
 			</QuickInfoWrapper>
+		)
 	}
 }
 
