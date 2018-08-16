@@ -7,29 +7,32 @@ const Wrapper = styled("div")`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-    padding: 7em 1em 3.5em 1em;
-    border-bottom: 2px dashed rgba(32,32,32,0.1);
+	padding: 7em 1em 3.5em 1em;
+	border-bottom: 2px dashed rgba(32, 32, 32, 0.1);
 
 	h1 {
-		font-weight: 400;
-		margin-bottom: 1em;
-    }
-    
-    .section {
-        margin-bottom: 2em;
-    }
+		font-weight: 700;
+		margin-bottom: 0.5em;
+		font-size: 60px;
+		text-align: center;
+		font-family: "Kaushan Script", cursive;
+	}
+
+	.section {
+		margin-bottom: 2em;
+	}
 
 	h3 {
 		margin-bottom: 0.5em;
 		text-transform: uppercase;
 		font-size: 22px;
-		font-weight: 400;
+		font-weight: 600;
 		text-align: center;
 	}
 
 	h5 {
-		font-weight: 100;
-		color: #666;
+		font-weight: 400;
+		color: #999;
 		font-size: 22px;
 	}
 
@@ -40,7 +43,7 @@ const Wrapper = styled("div")`
 const Hours = () => {
 	return (
 		<Wrapper>
-			<h1>HOURS</h1>
+			<h1>Hours</h1>
 
 			<h3>Walk-ins</h3>
 

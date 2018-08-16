@@ -10,6 +10,7 @@ import Header from "./components/Header"
 
 import igicon from "./instagram.png"
 import logo from "./logo.png"
+import Shop from "./sections/Shop"
 
 const Hero = styled("div")`
 	background-image: url("./hero2.jpg");
@@ -101,6 +102,10 @@ class App extends Component {
 						<ServicesTable />
 					</div>
 				</ScrollableAnchor>
+
+				<div>
+					<Shop />
+				</div>
 
 				<Footer>
 					<a className="link" href="http://instagram.com/laeffects" target="new" title="Follow us on instagram">

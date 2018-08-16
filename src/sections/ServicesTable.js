@@ -8,16 +8,19 @@ const Wrapper = styled("div")`
 	align-items: center;
 	justify-content: center;
 	padding: 7em 0;
-	background: rgba(242,242,242,.8);
+	background: rgba(242, 242, 242, 0.8);
 
 	h1 {
-		font-weight: 400;
+		font-weight: 700;
 		margin-bottom: 0.5em;
+		font-size: 60px;
+		text-align: center;
+		font-family: "Kaushan Script", cursive;
 	}
 
 	.table {
-        width: 100%;
-        padding: 0 20px;
+		width: 100%;
+		padding: 0 20px;
 
 		.service {
 			width: 100%;
@@ -30,18 +33,17 @@ const Wrapper = styled("div")`
 			}
 
 			.name {
-				font-size: 20px;
 				text-transform: uppercase;
-				font-size: 16px;
+				font-size: 20px;
 				padding-right: 1em;
 			}
 
 			.description {
-				font-size: 16px;
-				color: #666;
+				font-size: 18px;
+				color: #999;
 				padding-top: 10px;
-                padding-bottom: 10px;
-                font-weight: 100;
+				padding-bottom: 10px;
+				font-weight: 400;
 			}
 
 			.additional-info {
@@ -65,8 +67,8 @@ const Wrapper = styled("div")`
 
 	@media (min-width: 768px) {
 		.table {
-            width: 60vw;
-            padding: 0;
+			width: 60vw;
+			padding: 0;
 		}
 	}
 `
@@ -75,7 +77,7 @@ const Wrapper = styled("div")`
 const ServicesTable = () => {
 	return (
 		<Wrapper>
-			<h1>SERVICES & PRICING</h1>
+			<h1>Services & Pricing</h1>
 
 			<div className="table">
 				<div className="service">
@@ -138,25 +140,17 @@ const ServicesTable = () => {
 					<div className="description">
 						For those that stay with a fresh cut and are only looking for a quick line up.
 					</div>
-
-					<div className="additional-info">
-						<div className="price">Color enhanced line ups w/ cut via appointment: $45</div>
-					</div>
 				</div>
 
 				<div className="service">
 					<div className="top">
 						<div className="name">Designs</div>
 						<div className="prices">
-							<div className="price">Walk-In: Starting at $10 additional</div>
+							<div className="price">Starting at $10 additional</div>
 						</div>
 					</div>
 					<div className="description">
 						Take your cut to the next level with an innovative design from one of our award winning barbers.
-					</div>
-
-					<div className="additional-info">
-						<div className="price">Color enhanced designs via appointment start at $50</div>
 					</div>
 				</div>
 			</div>

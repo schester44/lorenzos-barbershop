@@ -122,7 +122,7 @@ class QuickInfo extends React.Component {
 		window.addEventListener("scroll", this.update)
 
 		axios
-			.get(`http://localhost:3443/wait?key=1664f088c55cce2e27c0bf14ca7dce374&employeeId=1`)
+			.get(`https://api.freshcut.xyz/wait?key=effectstempkey&employeeId=4`)
 			.then(res => res.data)
 			.then(this.setWaitTime)
 	}

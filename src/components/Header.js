@@ -10,7 +10,9 @@ const Wrapper = styled("div")`
 	justify-content: flex-end;
 	transition: background 0.2s ease;
 
-	${ props => props.mobile && `
+	${props =>
+		props.mobile &&
+		`
 		top: auto;
 		bottom: 0;
 		z-index: 9999;
@@ -18,14 +20,12 @@ const Wrapper = styled("div")`
 		.background {
 			background: rgba(0,0,0,1);
 		}
-	`}
-
-	.background {
+	`} .background {
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
-		height: 100%;		
+		height: 100%;
 		opacity: 1;
 		z-index: -1;
 
@@ -126,6 +126,12 @@ class Header extends React.Component {
 					<li>
 						<a href="#services" title="Barber Services">
 							Services
+						</a>
+					</li>
+
+					<li>
+						<a href="https://laeffects.myshopify.com/" target="new" title="LA Effects Store">
+							Shop
 						</a>
 					</li>
 				</ul>
