@@ -12,13 +12,15 @@ import Hours from "./sections/Hours"
 import Header from "./components/Header"
 
 import igicon from "./instagram.png"
-import logo from "./logo.png"
+import logo from "./logo2.png"
 import Shop from "./sections/Shop"
+import hero from "./hero.jpg"
 
 ReactGA.initialize("UA-41619870-7", { debug: process.env.NODE_ENV !== "production" })
 
+
 const Hero = styled("div")`
-	background-image: url("./hero2.jpg");
+	background-image: url(${hero});
 	background-size: cover;
 	background-position: center center;
 	height: 100vh;
