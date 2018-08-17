@@ -1,6 +1,9 @@
 import React, { Component } from "react"
 import styled from "styled-components"
 import ScrollableAnchor from "react-scrollable-anchor"
+
+import ReactGA from "react-ga"
+
 import "./App.css"
 
 import QuickInfo from "./components/QuickInfo"
@@ -11,6 +14,8 @@ import Header from "./components/Header"
 import igicon from "./instagram.png"
 import logo from "./logo.png"
 import Shop from "./sections/Shop"
+
+ReactGA.initialize("UA-41619870-7", { debug: process.env.NODE_ENV !== "production" })
 
 const Hero = styled("div")`
 	background-image: url("./hero2.jpg");

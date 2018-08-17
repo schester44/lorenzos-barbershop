@@ -1,5 +1,6 @@
+import ReactGA from "react-ga"
 import React from "react"
-import styled, { keyframes } from "styled-components"
+import styled from "styled-components"
 
 const Wrapper = styled("div")`
 	position: fixed;
@@ -113,24 +114,49 @@ class Header extends React.Component {
 				<div className="background" />
 				<ul>
 					<li>
-						<a href="#home" title="Lorenzo's Barbershop">
+						<a
+							href="#home"
+							title="Lorenzo's Barbershop"
+							onClick={() => {
+								ReactGA.pageview("/home")
+							}}
+						>
 							Home
 						</a>
 					</li>
 
 					<li>
-						<a href="#hours" title="Barbershop Hours">
+						<a
+							href="#hours"
+							title="Barbershop Hours"
+							onClick={() => {
+								ReactGA.pageview("/hours")
+							}}
+						>
 							Hours
 						</a>
 					</li>
 					<li>
-						<a href="#services" title="Barber Services">
+						<a
+							href="#services"
+							title="Barber Services"
+							onClick={() => {
+								ReactGA.pageview("/services")
+							}}
+						>
 							Services
 						</a>
 					</li>
 
 					<li>
-						<a href="https://laeffects.myshopify.com/" target="new" title="LA Effects Store">
+						<a
+							href="https://laeffects.myshopify.com/"
+							target="new"
+							title="LA Effects Store"
+							onClick={() => {
+								ReactGA.pageview("/shop")
+							}}
+						>
 							Shop
 						</a>
 					</li>
