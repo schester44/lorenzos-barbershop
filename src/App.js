@@ -11,16 +11,14 @@ import ServicesTable from "./sections/ServicesTable"
 import Hours from "./sections/Hours"
 import Header from "./components/Header"
 
-import igicon from "./instagram.png"
 import logo from "./logo2.png"
+import igicon from "./instagram.png"
 import Shop from "./sections/Shop"
-import hero from "./hero.jpg"
 
 ReactGA.initialize("UA-41619870-7", { debug: process.env.NODE_ENV !== "production" })
 
-
 const Hero = styled("div")`
-	background-image: url(${hero});
+	background-image: url(hero/${props => props.number}.jpg);
 	background-size: cover;
 	background-position: center center;
 	height: 100vh;
@@ -66,6 +64,7 @@ const Footer = styled("div")`
 	text-align: center;
 	display: flex;
 	justify-content: center;
+	margin-bottom: 60px;
 
 	.link {
 		font-size: 20px;
@@ -83,6 +82,8 @@ const Footer = styled("div")`
 `
 class App extends Component {
 	render() {
+		const hero = Math.floor(Math.random() * 7)
+
 		return (
 			<div className="App">
 				<ScrollableAnchor id={"home"}>
@@ -91,7 +92,7 @@ class App extends Component {
 					</div>
 				</ScrollableAnchor>
 
-				<Hero>
+				<Hero number={hero}>
 					<div className="brand">
 						<img src={logo} alt="Lorenzo's" />
 					</div>
