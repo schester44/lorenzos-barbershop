@@ -11,16 +11,14 @@ const Container = styled("div")`
 	justify-content: center;
 	padding: 7em 1em 3.5em 1em;
 	border-bottom: 2px dashed rgba(32, 32, 32, 0.1);
-	
 
 	.lafx {
-
 		@media (min-width: 768px) {
 			max-width: 50%;
 		}
 
 		margin-bottom: 40px;
-		
+
 		.top {
 			display: flex;
 			align-items: center;

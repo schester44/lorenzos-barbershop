@@ -136,6 +136,7 @@ class Header extends React.Component {
 							Hours
 						</a>
 					</li>
+					
 					<li>
 						<a
 							href="#services"

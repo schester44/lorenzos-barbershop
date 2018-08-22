@@ -9,6 +9,7 @@ import "./App.css"
 import QuickInfo from "./components/QuickInfo"
 import ServicesTable from "./sections/ServicesTable"
 import Hours from "./sections/Hours"
+import Gallery from "./sections/Gallery"
 import Header from "./components/Header"
 
 import logo from "./logo2.png"
@@ -114,6 +115,12 @@ class App extends Component {
 				<div>
 					<Shop />
 				</div>
+
+				<ScrollableAnchor id={"gallery"}>
+					<div>
+						<Gallery />
+					</div>
+				</ScrollableAnchor>
 
 				<Footer>
 					<a className="link" href="http://instagram.com/laeffects" target="new" title="Follow us on instagram">

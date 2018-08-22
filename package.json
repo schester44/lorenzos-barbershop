@@ -9,8 +9,7 @@
 		"react": "^16.4.1",
 		"react-dom": "^16.4.1",
 		"react-ga": "^2.5.3",
-		"react-images": "^0.5.19",
-		"react-photo-gallery": "^6.2.0",
+		"react-image-gallery": "^0.8.10",
 		"react-scripts": "1.1.4",
 		"react-scrollable-anchor": "^0.6.1",
 		"styled-components": "^3.3.3"

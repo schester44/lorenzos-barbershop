@@ -81,6 +81,10 @@ const QuickInfoWrapper = styled("div")`
 			}
 		}
 
+		p {
+			line-height: 1.5;
+		}
+
 		h5 {
 			font-weight: 400;
 			font-size: 16px;
@@ -189,6 +193,7 @@ class QuickInfo extends React.Component {
 						<div className="info">
 							<h5>514 McKean Avenue</h5>
 							<p>514 McKean Avenue, Charleroi, PA 15022</p>
+							<p>724-565-5344</p>
 						</div>
 					</div>
 
