@@ -77,10 +77,10 @@ class GalleryContainer extends React.Component {
 
 	render() {
 		return (
-            <Container isMobile={this.state.isMobile}>
-                <h1>Photo Gallery</h1>
+			<Container isMobile={this.state.isMobile}>
+				<h1>Photo Gallery</h1>
 				<div className="gallery-wrapper">
-					<ImageGallery lazyLoad={true} originalClass="gallery-image" showThumbnails={false} showBullets={true} items={this.images} />
+					<ImageGallery lazyLoad={true} originalClass="gallery-image" showThumbnails={false} items={this.images} />
 				</div>
 			</Container>
 		)

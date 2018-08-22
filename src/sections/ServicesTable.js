@@ -27,21 +27,16 @@ const Wrapper = styled("div")`
 			border-bottom: 1px solid rgba(32, 32, 32, 0.1);
 			padding: 1em 0;
 
-			.top {
-				display: flex;
-				align-items: center;
-			}
-
 			.name {
 				text-transform: uppercase;
-				font-size: 20px;
+				font-size: 22px;
 				padding-right: 1em;
+				line-height: 1.5;
 			}
 
 			.description {
 				font-size: 18px;
 				color: #999;
-				padding-top: 10px;
 				padding-bottom: 10px;
 				font-weight: 400;
 			}
@@ -54,7 +49,8 @@ const Wrapper = styled("div")`
 			.prices {
 				display: flex;
 				color: #666;
-				font-size: 14px;
+				font-size: 20px;
+				line-height: 1.5;
 
 				.price {
 					&:not(:first-child) {
