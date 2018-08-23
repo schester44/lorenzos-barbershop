@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import styled from "styled-components"
 import ScrollableAnchor from "react-scrollable-anchor"
-import AddToHomeScreen from "@rajatsehgal/add-to-home-screen/AddToHomeScreen"
+import AddToHomeScreen from "./components/AddToHomeScreen"
 
 import ReactGA from "react-ga"
 
