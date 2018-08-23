@@ -12,9 +12,9 @@ const Container = styled("div")`
 	left: 50%;
 	transform: translateX(-50%);
 	z-index: 9999999;
-	background: rgba(255,255,255,0.9);
-    padding: 10px;
-    padding-top: 25px;
+	background: rgba(255, 255, 255, 0.9);
+	padding: 10px;
+	padding-top: 25px;
 	border-radius: 10px;
 	color: #000;
 	border: 1px solid rgba(32, 32, 32, 0.1);
@@ -30,37 +30,43 @@ const Container = styled("div")`
 		position: absolute;
 		pointer-events: none;
 		border-color: rgba(136, 183, 213, 0);
-		border-top-color: rgba(255,255,255,0.9);
+		border-top-color: rgba(255, 255, 255, 0.9);
 		border-width: 15px;
 		margin-left: -15px;
-    }
-    
-    .text {
-        text-align: center;
-        font-size: 12px;
-    }
+	}
+
+	.text {
+		text-align: center;
+		font-size: 12px;
+	}
 `
 
 class AddToHomeScreen extends React.Component {
 	state = { visible: navigator && typeof navigator.standalone !== "undefined" && navigator.standalone == false }
 
-    constructor() {
-        super()
-        this.handleScroll = this.handleScroll.bind(this);
-    }
+	constructor() {
+		super()
+		this.handleScroll = this.handleScroll.bind(this)
+	}
 
-    componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll)
-    }
+	componentDidMount() {
+		window.addEventListener("scroll", this.handleScroll)
+	}
 
-    handleScroll = (e) => {
-        console.log(e);
+	handleScroll = e => {
+		if (!this.state.visible) {
+			window.removeEventListener("scroll", this.handleScroll)
+			return
+		}
 
-    }
+		if (window.scrollY > 100) {
+			this.handleClose()
+		}
+	}
 
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll)
-    }
+	componentWillUnmount() {
+		window.removeEventListener("scroll", this.handleScroll)
+	}
 
 	handleClose = () => this.setState({ visible: false })
 
@@ -77,8 +83,8 @@ class AddToHomeScreen extends React.Component {
 						width: 32,
 						height: 32,
 						padding: 10,
-                        cursor: "pointer",
-                        zIndex: 999999999
+						cursor: "pointer",
+						zIndex: 999999999
 					}}
 					src={`data:image/png;base64,${closeBase64}`}
 					onClick={this.handleClose}
