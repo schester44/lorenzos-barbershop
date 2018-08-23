@@ -1,81 +1,59 @@
 import React from "react"
 import styled from "styled-components"
+import Section from "../components/Section"
 
-const Wrapper = styled("div")`
+const Table = styled("div")`
 	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 7em 0;
-	background: rgba(242, 242, 242, 0.8);
+	padding: 0 20px;
 
-	h1 {
-		font-weight: 700;
-		margin-bottom: 0.5em;
-		font-size: 60px;
-		text-align: center;
-		font-family: "Kaushan Script", cursive;
-	}
-
-	.table {
+	.service {
 		width: 100%;
-		padding: 0 20px;
+		border-bottom: 1px solid rgba(32, 32, 32, 0.1);
+		padding: 1em 0;
 
-		.service {
-			width: 100%;
-			border-bottom: 1px solid rgba(32, 32, 32, 0.1);
-			padding: 1em 0;
+		.name {
+			text-transform: uppercase;
+			font-size: 22px;
+			padding-right: 1em;
+			line-height: 1.5;
+		}
 
-			.name {
-				text-transform: uppercase;
-				font-size: 22px;
-				padding-right: 1em;
-				line-height: 1.5;
-			}
+		.description {
+			font-size: 18px;
+			color: #666;
+			padding-bottom: 10px;
+			font-weight: 400;
+		}
 
-			.description {
-				font-size: 18px;
-				color: #999;
-				padding-bottom: 10px;
-				font-weight: 400;
-			}
+		.additional-info {
+			color: #666;
+			font-size: 14px;
+		}
 
-			.additional-info {
-				color: #999;
-				font-size: 14px;
-			}
+		.prices {
+			display: flex;
+			color: #999;
+			font-size: 20px;
+			line-height: 1.5;
 
-			.prices {
-				display: flex;
-				color: #666;
-				font-size: 20px;
-				line-height: 1.5;
-
-				.price {
-					&:not(:first-child) {
-						margin-left: 1em;
-					}
+			.price {
+				&:not(:first-child) {
+					margin-left: 1em;
 				}
 			}
 		}
 	}
 
 	@media (min-width: 768px) {
-		.table {
-			width: 60vw;
-			padding: 0;
-		}
+		width: 60vw;
+		padding: 0;
 	}
 `
 
 // TODO - Integrate this with the API
-const ServicesTable = () => {
-	return (
-		<Wrapper>
-			<h1>Services & Pricing</h1>
-
-			<div className="table">
+const ServicesTable = props => {
+	return <Section {...props} title="Services & Pricing">
+			<Table>
 				<div className="service">
 					<div className="top">
 						<div className="name">Regular Cuts</div>
@@ -149,9 +127,8 @@ const ServicesTable = () => {
 						Take your cut to the next level with an innovative design from one of our award winning barbers.
 					</div>
 				</div>
-			</div>
-		</Wrapper>
-	)
+			</Table>
+		</Section>
 }
 
 export default ServicesTable

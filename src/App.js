@@ -110,7 +110,7 @@ class App extends Component {
 
 				<ScrollableAnchor id={"services"}>
 					<div>
-						<ServicesTable />
+						<ServicesTable odd />
 					</div>
 				</ScrollableAnchor>
 
@@ -120,7 +120,7 @@ class App extends Component {
 
 				<ScrollableAnchor id={"gallery"}>
 					<div>
-						<Gallery />
+						<Gallery odd />
 					</div>
 				</ScrollableAnchor>
 

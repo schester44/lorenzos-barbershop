@@ -14,3 +14,24 @@ body, html, #root, #App {
     font-family: blacksword;
     src: url('./Blacksword.otf');
 }
+
+.gallery-wrapper {
+	width: 100%;
+}
+
+.image-gallery-slide {
+	background: rgba(245, 245, 245, 1);
+}
+
+.image-gallery-slides {
+	text-align: center;
+}
+
+.image-gallery-slide img {
+	width: auto;
+	height: 500px;
+}
+
+a {
+	color: blue;
+}
