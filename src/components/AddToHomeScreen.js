@@ -58,8 +58,9 @@ class AddToHomeScreen extends React.Component {
 						right: 0,
 						width: 32,
 						height: 32,
-						padding: 5,
-						cursor: "pointer"
+						padding: 10,
+                        cursor: "pointer",
+                        zIndex: 999999999
 					}}
 					src={`data:image/png;base64,${closeBase64}`}
 					onClick={this.handleClose}
