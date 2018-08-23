@@ -13,7 +13,8 @@ const Container = styled("div")`
 	transform: translateX(-50%);
 	z-index: 9999999;
 	background: rgba(255,255,255,0.9);
-	padding: 10px;
+    padding: 10px;
+    padding-top: 25px;
 	border-radius: 10px;
 	color: #000;
 	border: 1px solid rgba(32, 32, 32, 0.1);
@@ -46,7 +47,7 @@ class AddToHomeScreen extends React.Component {
 	handleClose = () => this.setState({ visible: false })
 
 	render() {
-		if (!this.state.visible) return null
+		// if (!this.state.visible) return null
 
 		return (
 			<Container>
@@ -55,8 +56,8 @@ class AddToHomeScreen extends React.Component {
 						position: "absolute",
 						top: 0,
 						right: 0,
-						width: 16,
-						height: 16,
+						width: 32,
+						height: 32,
 						padding: 5,
 						cursor: "pointer"
 					}}
