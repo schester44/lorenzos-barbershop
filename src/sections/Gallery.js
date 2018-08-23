@@ -41,8 +41,10 @@ const Container = styled("div")`
 	}
 `
 
+const TOTAL_IMAGES = 26
+
 class GalleryContainer extends React.Component {
-	images = Array(22)
+	images = Array(TOTAL_IMAGES)
 		.fill()
 		.map((v, i) => ({
 			original: `gallery/${i}.jpg`
@@ -50,8 +52,7 @@ class GalleryContainer extends React.Component {
 
 	state = {
 		lightboxIsOpen: false,
-		currentImage: 0,
-		isMobile: window.outerWidth <= 768
+		currentImage: 0
 	}
 
 	openLightbox = (event, obj) => {
@@ -77,7 +78,7 @@ class GalleryContainer extends React.Component {
 
 	render() {
 		return (
-			<Container isMobile={this.state.isMobile}>
+			<Container>
 				<h1>Photo Gallery</h1>
 				<div className="gallery-wrapper">
 					<ImageGallery lazyLoad={true} originalClass="gallery-image" showThumbnails={false} items={this.images} />
