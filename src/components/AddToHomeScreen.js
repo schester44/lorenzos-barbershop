@@ -46,7 +46,7 @@ class AddToHomeScreen extends React.Component {
 	handleClose = () => this.setState({ visible: false })
 
 	render() {
-		// if (!this.state.visible) return null
+		if (!this.state.visible) return null
 
 		return (
 			<Container>
