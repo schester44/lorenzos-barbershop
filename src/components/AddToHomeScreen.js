@@ -42,12 +42,30 @@ const Container = styled("div")`
 `
 
 class AddToHomeScreen extends React.Component {
-	state = { visible: navigator && navigator.standalone === false }
+	state = { visible: navigator && typeof navigator.standalone !== "undefined" && navigator.standalone == false }
+
+    constructor() {
+        super()
+        this.handleScroll = this.handleScroll.bind(this);
+    }
+
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll)
+    }
+
+    handleScroll = (e) => {
+        console.log(e);
+
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll)
+    }
 
 	handleClose = () => this.setState({ visible: false })
 
 	render() {
-		// if (!this.state.visible) return null
+		if (!this.state.visible) return null
 
 		return (
 			<Container>
