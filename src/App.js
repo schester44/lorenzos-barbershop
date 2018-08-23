@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import styled from "styled-components"
 import ScrollableAnchor from "react-scrollable-anchor"
+import AddToHomeScreen from "@rajatsehgal/add-to-home-screen/AddToHomeScreen"
 
 import ReactGA from "react-ga"
 
@@ -87,6 +88,7 @@ class App extends Component {
 
 		return (
 			<div className="App">
+				<AddToHomeScreen />
 				<ScrollableAnchor id={"home"}>
 					<div>
 						<Header />
