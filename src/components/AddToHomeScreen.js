@@ -59,7 +59,7 @@ class AddToHomeScreen extends React.Component {
 			return
 		}
 
-		if (window.scrollY > 100) {
+		if (window.scrollY > 250) {
 			this.handleClose()
 		}
 	}
