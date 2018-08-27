@@ -66,7 +66,7 @@ const Footer = styled("div")`
 	text-align: center;
 	display: flex;
 	justify-content: center;
-	margin-bottom: 60px;
+	margin-bottom: 120px;
 
 	.link {
 		font-size: 20px;
