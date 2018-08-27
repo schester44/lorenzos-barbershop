@@ -26,21 +26,24 @@ const Container = styled("div")`
 `
 
 const Hours = () => {
-	return <Section {...this.props} title="Hours">
+	return (
+		<Section {...this.props} title="Hours">
 			<Container>
 				<h3>Walk-ins</h3>
 
 				<div className="section">
-					<h5>Tuesday thru Friday: 9am to 6pm</h5>
+					<h5>Tuesday, Thursday, Friday: 9am to 6pm</h5>
 					<h5>Saturday: 7am to 3pm</h5>
 				</div>
 
 				<div className="section">
 					<h3>Appointments</h3>
-					<h5>Tuesday thru Friday: 7am to 9am</h5>
+					<h5>Tuesday, Thursday, Friday: 7am to 9am</h5>
+					<h5>Wednesday: 7am to 6pm</h5>
 				</div>
 			</Container>
 		</Section>
+	)
 }
 
 export default Hours
