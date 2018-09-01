@@ -131,7 +131,7 @@ const days = {
 		closed: 19
 	},
 	saturday: {
-		closed: 15
+		closed: 16
 	}
 }
 
