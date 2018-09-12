@@ -246,7 +246,7 @@ class QuickInfo extends React.Component {
 						</div>
 						<div className="info">
 							<h5>514 McKean Avenue</h5>
-							<p>514 McKean Avenue, Charleroi, PA 15022</p>
+							<p>514 McKean Avenue<br />Charleroi, PA 15022</p>
 							<p>724-565-5344</p>
 						</div>
 					</div>
