@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components"
 import axios from "axios"
 import format from "date-fns/format"
 import Icon from "./Icon"
-import { addMinutes, setHours, setMinutes, isAfter } from "date-fns"
+import { addMinutes, setHours, setMinutes, isAfter, isWithinRange } from "date-fns"
 
 const fadeInLeft = keyframes`
   from {
@@ -179,6 +179,16 @@ class QuickInfo extends React.Component {
 
 		const closeTime = setMinutes(setHours(now, daySettings.closed), 0)
 		const endTime = addMinutes(now, minutes + hours * 60)
+
+		// Show Appointment message if within that time range.
+		if (daySettings.appointments && daySettings.appointments.length >= 2) {
+			const apptStart = setMinutes(setHours(now, daySettings.appointments[0]), 0)
+			const apptEnd = setMinutes(setHours(now, daySettings.appointments[1]), 0)
+
+			if (isWithinRange(now, apptStart, apptEnd)) {
+				return this.setState({ waitTime: `Appointments only, until ${format(apptEnd, "h:mmA")}` })
+			}
+		}
 
 		if (isAfter(endTime, closeTime)) {
 			return this.setState({ waitTime: "Fully Booked" })
