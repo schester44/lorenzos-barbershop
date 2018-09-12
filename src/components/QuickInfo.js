@@ -142,6 +142,8 @@ class QuickInfo extends React.Component {
 			waitTime: "Calculating"
 		}
 
+		this.today = days[format(new Date(), "dddd").toLowerCase()]
+
 		this.update = this.update.bind(this)
 	}
 
@@ -168,25 +170,24 @@ class QuickInfo extends React.Component {
 
 		const currentDay = format(now, "dddd").toLowerCase()
 		const currentHour = format(now, "H")
-		const daySettings = days[currentDay]
 
-		if (!daySettings || (daySettings.closed && +daySettings.closed <= +currentHour)) {
+		if (!this.today || (this.today.closed && +this.today.closed <= +currentHour)) {
 			return this.setState({ waitTime: "Closed" })
 		}
 
 		const hours = Math.floor(time / 60)
 		const minutes = Math.floor(60 * ((time / 60) % 1))
 
-		const closeTime = setMinutes(setHours(now, daySettings.closed), 0)
+		const closeTime = setMinutes(setHours(now, this.today.closed), 0)
 		const endTime = addMinutes(now, minutes + hours * 60)
 
 		// Show Appointment message if within that time range.
-		if (daySettings.appointments && daySettings.appointments.length >= 2) {
-			const apptStart = setMinutes(setHours(now, daySettings.appointments[0]), 0)
-			const apptEnd = setMinutes(setHours(now, daySettings.appointments[1]), 0)
+		if (this.today.appointments && this.today.appointments.length >= 2) {
+			const apptStart = setMinutes(setHours(now, this.today.appointments[0]), 0)
+			const apptEnd = setMinutes(setHours(now, this.today.appointments[1]), 0)
 
 			if (isWithinRange(now, apptStart, apptEnd)) {
-				return this.setState({ waitTime: `Appointments only, until ${format(apptEnd, "h:mmA")}` })
+				return this.setState({ waitTime: `Appointments only, until ${format(apptEnd, "h:mm a")}` })
 			}
 		}
 
