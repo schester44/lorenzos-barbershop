@@ -153,7 +153,7 @@ class QuickInfo extends React.Component {
 		axios
 			.get(
 				process.env.NODE_ENV === "production"
-					? `https://api.freshcut.xyz/wait?key=effectstempkey&employeeId=4`
+					? `https://api.neverwait.app/wait?key=effectstempkey&employeeId=4`
 					: `http://localhost:3443/wait?key=1ee93cda1d69cd54b25ce2bc6be1de2ce&employeeId=1`
 			)
 			.then(res => res.data)
