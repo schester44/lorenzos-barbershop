@@ -1,9 +1,9 @@
-import React from "react"
-import styled, { keyframes } from "styled-components"
-import axios from "axios"
-import format from "date-fns/format"
-import Icon from "./Icon"
-import { addMinutes, setHours, setMinutes, isAfter, isWithinRange } from "date-fns"
+import React from 'react'
+import styled, { keyframes } from 'styled-components'
+import axios from 'axios'
+import format from 'date-fns/format'
+import Icon from './Icon'
+import { addMinutes, setHours, setMinutes, isAfter, isWithinRange, isBefore } from 'date-fns'
 
 const fadeInLeft = keyframes`
   from {
@@ -17,7 +17,7 @@ const fadeInLeft = keyframes`
   }
 `
 
-const QuickInfoWrapper = styled("div")`
+const QuickInfoWrapper = styled('div')`
 	position: relative;
 	width: 100%;
 	margin-top: -100px;
@@ -113,160 +113,180 @@ const QuickInfoWrapper = styled("div")`
 	}
 `
 
+const durationToHumanReadable = duration => {
+	const hours = Math.floor(duration / 60)
+	const minutes = Math.floor(60 * ((duration / 60) % 1))
+
+	if (hours === 1 && minutes === 0) return `1 hour`
+
+	if (hours === 0 && minutes > 0) return `${minutes} minutes`
+
+	if (hours > 1 && minutes === 0) return `${hours} hours`
+
+	return `${hours === 1 ? '1 hour' : `${hours} hours`} ${minutes} mins`
+}
+
 const days = {
 	tuesday: {
-		appointments: [7, 9],
-		closed: 19
+		appointments: [7, 9]
 	},
 	wednesday: {
-		appointments: [7, 19],
-		closed: 19
+		appointments: [7, 19]
 	},
 	thursday: {
-		appointments: [7, 9],
-		closed: 19
+		appointments: [7, 9]
 	},
 	friday: {
-		appointments: [7, 9],
-		closed: 19
-	},
-	saturday: {
-		closed: 16
+		appointments: [7, 9]
 	}
 }
 
-class QuickInfo extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			waitTime: "Calculating"
-		}
+export function dateFromTimeString(time, date) {
+	const [hours, minutes] = time.split(':')
 
-		this.today = days[format(new Date(), "dddd").toLowerCase()]
+	return setHours(setMinutes(date || new Date(), parseInt(minutes, 10)), parseInt(hours, 10))
+}
 
-		this.update = this.update.bind(this)
-	}
+const detailsEndpoint =
+	process.env.NODE_ENV === 'production'
+		? `https://api.neverwait.app/details/employee?id=4`
+		: `http://localhost:3443/details/employee?id=user3`
 
-	componentDidMount() {
-		window.addEventListener("scroll", this.update)
+const authCode = process.env.NODE_ENV === 'production' ? 'effectstempkey' : 'lolcode'
 
-		axios
-			.get(
-				process.env.NODE_ENV === "production"
-					? `https://api.neverwait.app/wait?key=effectstempkey&employeeId=4`
-					: `http://localhost:3443/wait?key=1ee93cda1d69cd54b25ce2bc6be1de2ce&employeeId=1`
-			)
-			.then(res => res.data)
-			.then(this.setWaitTime)
-	}
+const useScroll = (cb, updateOn = []) => {
+	React.useEffect(() => {
+		window.addEventListener('scroll', cb)
+		return () => window.removeEventListener('scroll', cb)
+	}, updateOn)
+}
 
-	setWaitTime = ({ time, error }) => {
-		if (error) {
-			this.setState({ waitTime: "Error" })
-			return
-		}
+const QuickInfo = () => {
+	const [state, setState] = React.useState({
+		inverted: false,
+		currentWaitTime: 'Calculating',
+		shifts: []
+	})
 
-		const now = new Date()
-
-		const currentDay = format(now, "dddd").toLowerCase()
-		const currentHour = format(now, "H")
-
-		if (!this.today || (this.today.closed && +this.today.closed <= +currentHour)) {
-			return this.setState({ waitTime: "Closed" })
-		}
-
-		const hours = Math.floor(time / 60)
-		const minutes = Math.floor(60 * ((time / 60) % 1))
-
-		const closeTime = setMinutes(setHours(now, this.today.closed), 0)
-		const endTime = addMinutes(now, minutes + hours * 60)
-
-		// Show Appointment message if within that time range.
-		if (this.today.appointments && this.today.appointments.length >= 2) {
-			const apptStart = setMinutes(setHours(now, this.today.appointments[0]), 0)
-			const apptEnd = setMinutes(setHours(now, this.today.appointments[1]), 0)
-
-			if (isWithinRange(now, apptStart, apptEnd)) {
-				return this.setState({ waitTime: `Appointments only, until ${format(apptEnd, "h:mm a")}` })
-			}
-		}
-
-		if (isAfter(endTime, closeTime)) {
-			return this.setState({ waitTime: "Fully Booked" })
-		}
-
-		if (time < 15) {
-			return this.setState({ waitTime: "No Wait" })
-		}
-
-		this.setState({
-			waitTime: hours > 0 ? `${hours}hr ${minutes}mins` : `${minutes} mins`
-		})
-	}
-
-	componentWillUnmount() {
-		window.removeEventListener("scroll", this.update)
-	}
-
-	update = () => {
+	useScroll(() => {
 		if (window.innerWidth < 768) {
 			return
 		}
 
 		if (window.scrollY > window.innerHeight - 60) {
-			if (!this.state.inverted) {
-				this.setState({ inverted: true })
+			if (!state.inverted) {
+				setState(prev => ({ ...prev, inverted: true }))
 			}
 		} else {
-			if (this.state.inverted) {
-				this.setState({ inverted: false })
+			if (state.inverted) {
+				setState(prev => ({ ...prev, inverted: false }))
 			}
 		}
+	}, [state.inverted])
+
+	const setWaitTime = ({ locationClosed, currentWaitTime, shifts }) => {
+		// No Shifts = Closed, locationClosed = closed
+		if (locationClosed || !shifts || shifts.length === 0) {
+			return setState({
+				currentWaitTime: 'Closed',
+				shifts
+			})
+		}
+
+		const currentDate = new Date()
+		const startTime = dateFromTimeString(shifts[0].start_time, currentDate)
+		const endTime = dateFromTimeString(shifts[0].end_time, currentDate)
+
+		const specialRulesForToday = days[format(new Date(), 'dddd').toLowerCase()]
+		const timeWhenWaitIsUp = addMinutes(currentDate, currentWaitTime)
+
+		// Appointments are longer than the shift...
+		if (isAfter(timeWhenWaitIsUp, endTime)) {
+			setState({ currentWaitTime: 'Closed, fully booked', shifts })
+		}
+
+		// Outside of shift schedule
+		if (isAfter(currentDate, endTime) || isBefore(currentDate, startTime)) {
+			return setState({ currentWaitTime: 'Closed', shifts })
+		}
+
+		// Show Appointment message if within that time range.
+		if (specialRulesForToday && specialRulesForToday.appointments) {
+			const apptStart = setMinutes(setHours(currentDate, specialRulesForToday.appointments[0]), 0)
+			const apptEnd = setMinutes(setHours(currentDate, specialRulesForToday.appointments[1]), 0)
+
+			if (isWithinRange(currentDate, apptStart, apptEnd)) {
+				return setState({ currentWaitTime: `Appointments only, until ${format(apptEnd, 'h:mm a')}`, shifts })
+			}
+		}
+
+		if (currentWaitTime < 15) {
+			return setState({ currentWaitTime: 'No Wait', shifts })
+		}
+
+		setState({
+			shifts,
+			currentWaitTime: durationToHumanReadable(currentWaitTime)
+		})
 	}
 
-	render() {
-		return (
-			<QuickInfoWrapper mobile={window.innerWidth < 768} fixed={this.state.inverted}>
-				<div className="container">
-					<div className="column col-3 fixed-item">
-						<div className="icon">
-							<Icon type="timer" />
-						</div>
-						<div className="info">
-							<h5>Current Wait</h5>
-							<p>{this.state.waitTime}</p>
-						</div>
+	React.useEffect(() => {
+		axios
+			.get(detailsEndpoint, {
+				headers: {
+					Authorization: `Bearer ${authCode}`
+				}
+			})
+			.then(({ data }) => {
+				setWaitTime(data)
+			})
+	}, [])
+
+	return (
+		<QuickInfoWrapper mobile={window.innerWidth < 768} fixed={state.inverted}>
+			<div className="container">
+				<div className="column col-3 fixed-item">
+					<div className="icon">
+						<Icon type="timer" />
 					</div>
-
-					{this.state.inverted && <div className="column col-3" />}
-
-					<div className="column col-4">
-						<div className="icon">
-							<Icon type="pin" />
-						</div>
-						<div className="info">
-							<h5>514 McKean Avenue</h5>
-							<p>514 McKean Avenue<br />Charleroi, PA 15022</p>
-							<p>724-565-5344</p>
-						</div>
-					</div>
-
-					<div className="column col-5">
-						<div className="icon">
-							<Icon type="time" />
-						</div>
-						<div className="info">
-							<h5>Hours of Operation</h5>
-							<ul>
-								<li>Tuesday - Friday 9am - 6pm</li>
-								<li>Saturday: 7am - 3pm</li>
-							</ul>
-						</div>
+					<div className="info">
+						<h5>Current Wait</h5>
+						<p>{state.currentWaitTime}</p>
 					</div>
 				</div>
-			</QuickInfoWrapper>
-		)
-	}
+
+				{state.inverted && <div className="column col-3" />}
+
+				<div className="column col-4">
+					<div className="icon">
+						<Icon type="pin" />
+					</div>
+					<div className="info">
+						<h5>514 McKean Avenue</h5>
+						<p>
+							514 McKean Avenue
+							<br />
+							Charleroi, PA 15022
+						</p>
+						<p>724-565-5344</p>
+					</div>
+				</div>
+
+				<div className="column col-5">
+					<div className="icon">
+						<Icon type="time" />
+					</div>
+					<div className="info">
+						<h5>Hours of Operation</h5>
+						<ul>
+							<li>Tuesday - Friday 9am - 6pm</li>
+							<li>Saturday: 7am - 3pm</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</QuickInfoWrapper>
+	)
 }
 
 export default QuickInfo

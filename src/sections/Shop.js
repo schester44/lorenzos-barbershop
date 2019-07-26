@@ -3,7 +3,6 @@ import styled from "styled-components"
 
 import lafx from "../lafx.png"
 import Section from "../components/Section"
-import SectionHeader from "../components/SectionHeader"
 
 const Container = styled("div")`
 	display: flex;

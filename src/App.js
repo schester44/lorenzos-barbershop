@@ -5,8 +5,6 @@ import AddToHomeScreen from "./components/AddToHomeScreen"
 
 import ReactGA from "react-ga"
 
-import "./App.css"
-
 import QuickInfo from "./components/QuickInfo"
 import ServicesTable from "./sections/ServicesTable"
 import Hours from "./sections/Hours"
