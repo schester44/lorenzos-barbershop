@@ -149,7 +149,7 @@ export function dateFromTimeString(time, date) {
 
 const detailsEndpoint =
 	process.env.NODE_ENV === 'production'
-		? `https://api.neverwait.app/details/employee?id=4`
+		? `https://api.neverwait.app/details/employee?id=lorenzo`
 		: `http://localhost:3443/details/employee?id=user3`
 
 const authCode = process.env.NODE_ENV === 'production' ? 'effectstempkey' : 'lolcode'
