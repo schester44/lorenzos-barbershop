@@ -1,8 +1,8 @@
-import ReactGA from "react-ga"
-import React from "react"
-import styled from "styled-components"
+import ReactGA from 'react-ga'
+import React from 'react'
+import styled from 'styled-components'
 
-const Wrapper = styled("div")`
+const Wrapper = styled('div')`
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -10,6 +10,35 @@ const Wrapper = styled("div")`
 	display: flex;
 	justify-content: flex-end;
 	transition: background 0.2s ease;
+
+	.main-cta:hover {
+		color: rgba(100, 100, 100, 1);
+	}
+
+	${({ mobile }) =>
+		mobile
+			? `
+		.main-cta {
+			position: fixed;
+			top: 10px;
+			right: 10px;
+			background: rgba(237, 209, 129, 1);
+			padding: 10px 20px;
+			border-radius: 10px;
+			color: black;
+			box-shadow: 0px 3px 10px rgba(32,32,32,0.2);
+		}	
+		`
+			: `
+	
+		.main-cta {
+			background: rgba(237, 209, 129, 1);
+			padding: 10px 20px;
+			border-radius: 4px;
+			color: black;
+			box-shadow: 0px 3px 5px rgba(32,32,32,0.1);
+		}
+	`}
 
 	${props =>
 		props.mobile &&
@@ -87,11 +116,11 @@ class Header extends React.Component {
 
 	componentDidMount() {
 		this.setState({ isMobile: window.innerWidth < 768 })
-		window.addEventListener("scroll", this.update)
+		window.addEventListener('scroll', this.update)
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener("scroll", this.update)
+		window.removeEventListener('scroll', this.update)
 	}
 
 	update = () => {
@@ -118,7 +147,7 @@ class Header extends React.Component {
 							href="#home"
 							title="Lorenzo's Barbershop"
 							onClick={() => {
-								ReactGA.pageview("/home")
+								ReactGA.pageview('/home')
 							}}
 						>
 							Home
@@ -130,19 +159,19 @@ class Header extends React.Component {
 							href="#hours"
 							title="Barbershop Hours"
 							onClick={() => {
-								ReactGA.pageview("/hours")
+								ReactGA.pageview('/hours')
 							}}
 						>
 							Hours
 						</a>
 					</li>
-					
+
 					<li>
 						<a
 							href="#services"
 							title="Barber Services"
 							onClick={() => {
-								ReactGA.pageview("/services")
+								ReactGA.pageview('/services')
 							}}
 						>
 							Services
@@ -155,10 +184,21 @@ class Header extends React.Component {
 							target="new"
 							title="LA Effects Store"
 							onClick={() => {
-								ReactGA.pageview("/shop")
+								ReactGA.pageview('/shop')
 							}}
 						>
 							Shop
+						</a>
+					</li>
+
+					<li>
+						<a
+							href="https://neverwait.app/waitlist/l/lorenzo"
+							target="new"
+							title="Online Check-in"
+							className="main-cta"
+						>
+							Online Check-in
 						</a>
 					</li>
 				</ul>

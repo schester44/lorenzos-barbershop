@@ -38,6 +38,10 @@ const QuickInfoWrapper = styled('div')`
 			  transform: scale(0.9) translateX(10px);
 			  padding: 7px !important;
 			  align-items: center;
+
+			  h5 {
+				  margin-bottom: 0 !important;
+			  }
 		  }
 	`}
 	
