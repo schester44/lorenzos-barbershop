@@ -154,9 +154,9 @@ export function dateFromTimeString(time, date) {
 const detailsEndpoint =
 	process.env.NODE_ENV === 'production'
 		? `https://api.neverwait.app/details/employee?id=lorenzo`
-		: `http://localhost:3443/details/employee?id=user3`
+		: `http://localhost:3443/details/employee?id=lorenzo`
 
-const authCode = process.env.NODE_ENV === 'production' ? 'effectstempkey' : 'lolcode'
+const authCode = 'effectstempkey'
 
 const useScroll = (cb, updateOn = []) => {
 	React.useEffect(() => {
@@ -198,15 +198,14 @@ const QuickInfo = () => {
 		}
 
 		const currentDate = new Date()
-		const startTime = dateFromTimeString(shifts[0].start_time, currentDate)
-		const endTime = dateFromTimeString(shifts[0].end_time, currentDate)
+		const startTime = dateFromTimeString(shifts[shifts.length - 1].start_time, currentDate)
+		const endTime = dateFromTimeString(shifts[shifts.length - 1].end_time, currentDate)
 
 		const specialRulesForToday = days[format(new Date(), 'dddd').toLowerCase()]
 		const timeWhenWaitIsUp = addMinutes(currentDate, currentWaitTime)
 
-		// Appointments are longer than the shift...
 		if (isAfter(timeWhenWaitIsUp, endTime)) {
-			setState({ currentWaitTime: 'Closed, fully booked', shifts })
+			return setState({ currentWaitTime: 'Closed, fully booked', shifts })
 		}
 
 		// Outside of shift schedule
