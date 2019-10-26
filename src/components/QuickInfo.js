@@ -1,9 +1,7 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
-import axios from 'axios'
-import format from 'date-fns/format'
 import Icon from './Icon'
-import { addMinutes, setHours, setMinutes, isAfter, isWithinRange, isBefore } from 'date-fns'
+import { setHours, setMinutes } from 'date-fns'
 
 const fadeInLeft = keyframes`
   from {
@@ -117,46 +115,11 @@ const QuickInfoWrapper = styled('div')`
 	}
 `
 
-const durationToHumanReadable = duration => {
-	const hours = Math.floor(duration / 60)
-	const minutes = Math.floor(60 * ((duration / 60) % 1))
-
-	if (hours === 1 && minutes === 0) return `1 hour`
-
-	if (hours === 0 && minutes > 0) return `${minutes} minutes`
-
-	if (hours > 1 && minutes === 0) return `${hours} hours`
-
-	return `${hours === 1 ? '1 hour' : `${hours} hours`} ${minutes} mins`
-}
-
-const days = {
-	tuesday: {
-		appointments: [7, 9]
-	},
-	wednesday: {
-		appointments: [7, 19]
-	},
-	thursday: {
-		appointments: [7, 9]
-	},
-	friday: {
-		appointments: [7, 9]
-	}
-}
-
 export function dateFromTimeString(time, date) {
 	const [hours, minutes] = time.split(':')
 
 	return setHours(setMinutes(date || new Date(), parseInt(minutes, 10)), parseInt(hours, 10))
 }
-
-const detailsEndpoint =
-	process.env.NODE_ENV === 'production'
-		? `https://api.neverwait.app/details/employee?id=lorenzo`
-		: `http://localhost:3443/details/employee?id=lorenzo`
-
-const authCode = 'effectstempkey'
 
 const useScroll = (cb, updateOn = []) => {
 	React.useEffect(() => {
@@ -167,9 +130,7 @@ const useScroll = (cb, updateOn = []) => {
 
 const QuickInfo = () => {
 	const [state, setState] = React.useState({
-		inverted: false,
-		currentWaitTime: 'Calculating',
-		shifts: []
+		inverted: false
 	})
 
 	useScroll(() => {
@@ -188,78 +149,9 @@ const QuickInfo = () => {
 		}
 	}, [state.inverted])
 
-	const setWaitTime = ({ locationClosed, currentWaitTime, shifts }) => {
-		// No Shifts = Closed, locationClosed = closed
-		if (locationClosed || !shifts || shifts.length === 0) {
-			return setState({
-				currentWaitTime: 'Closed',
-				shifts
-			})
-		}
-
-		const currentDate = new Date()
-		const startTime = dateFromTimeString(shifts[shifts.length - 1].start_time, currentDate)
-		const endTime = dateFromTimeString(shifts[shifts.length - 1].end_time, currentDate)
-
-		const specialRulesForToday = days[format(new Date(), 'dddd').toLowerCase()]
-		const timeWhenWaitIsUp = addMinutes(currentDate, currentWaitTime)
-
-		if (isAfter(timeWhenWaitIsUp, endTime)) {
-			return setState({ currentWaitTime: 'Closed, fully booked', shifts })
-		}
-
-		// Outside of shift schedule
-		if (isAfter(currentDate, endTime) || isBefore(currentDate, startTime)) {
-			return setState({ currentWaitTime: 'Closed', shifts })
-		}
-
-		// Show Appointment message if within that time range.
-		if (specialRulesForToday && specialRulesForToday.appointments) {
-			const apptStart = setMinutes(setHours(currentDate, specialRulesForToday.appointments[0]), 0)
-			const apptEnd = setMinutes(setHours(currentDate, specialRulesForToday.appointments[1]), 0)
-
-			if (isWithinRange(currentDate, apptStart, apptEnd)) {
-				return setState({ currentWaitTime: `Appointments only, until ${format(apptEnd, 'h:mm a')}`, shifts })
-			}
-		}
-
-		if (currentWaitTime < 15) {
-			return setState({ currentWaitTime: 'No Wait', shifts })
-		}
-
-		setState({
-			shifts,
-			currentWaitTime: durationToHumanReadable(currentWaitTime)
-		})
-	}
-
-	React.useEffect(() => {
-		axios
-			.get(detailsEndpoint, {
-				headers: {
-					Authorization: `Bearer ${authCode}`
-				}
-			})
-			.then(({ data }) => {
-				setWaitTime(data)
-			})
-	}, [])
-
 	return (
 		<QuickInfoWrapper mobile={window.innerWidth < 768} fixed={state.inverted}>
 			<div className="container">
-				<div className="column col-3 fixed-item">
-					<div className="icon">
-						<Icon type="timer" />
-					</div>
-					<div className="info">
-						<h5>Current Wait</h5>
-						<p>{state.currentWaitTime}</p>
-					</div>
-				</div>
-
-				{state.inverted && <div className="column col-3" />}
-
 				<div className="column col-4">
 					<div className="icon">
 						<Icon type="pin" />
