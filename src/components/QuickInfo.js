@@ -1,7 +1,7 @@
-import React from 'react'
-import styled, { keyframes } from 'styled-components'
-import Icon from './Icon'
-import { setHours, setMinutes } from 'date-fns'
+import React from "react";
+import styled, { keyframes } from "styled-components";
+import Icon from "./Icon";
+import { setHours, setMinutes } from "date-fns";
 
 const fadeInLeft = keyframes`
   from {
@@ -13,20 +13,20 @@ const fadeInLeft = keyframes`
     opacity: 1;
     transform: none;
   }
-`
+`;
 
-const QuickInfoWrapper = styled('div')`
-	position: relative;
-	width: 100%;
-	margin-top: -100px;
+const QuickInfoWrapper = styled("div")`
+  position: relative;
+  width: 100%;
+  margin-top: -100px;
 
-	${props =>
-		props.mobile &&
-		`
+  ${props =>
+    props.mobile &&
+    `
   		margin-top: -190px;
 	`} ${props =>
-		props.fixed &&
-		`
+    props.fixed &&
+    `
   		.fixed-item {
 			  position: fixed;
 			  top: 0;
@@ -44,144 +44,147 @@ const QuickInfoWrapper = styled('div')`
 	`}
 	
 	.container {
-		position: relative;
-		width: 100%;
-		background: black;
-		color: white;
-		font-size: 18px;
-		animation: ${fadeInLeft} 1s ease forwards;
-		display: flex;
-		flex-wrap: wrap;
-		flex-direction: column;
+    position: relative;
+    width: 100%;
+    background: black;
+    color: white;
+    font-size: 18px;
+    animation: ${fadeInLeft} 1s ease forwards;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 
-		align-items: center;
-		padding: 15px;
-		min-height: 150px;
+    align-items: center;
+    padding: 15px;
+    min-height: 150px;
 
-		.column {
-			flex: 1;
-			width: 100%;
-			display: flex;
-			color: #999999;
-			font-size: 15px;
-			padding: 20px 0;
+    .column {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      color: #999999;
+      font-size: 15px;
+      padding: 20px 0;
 
-			.icon {
-				height: 100%;
-				margin-right: 15px;
-			}
+      .icon {
+        height: 100%;
+        margin-right: 15px;
+      }
 
-			.info {
-				height: 100%;
-			}
+      .info {
+        height: 100%;
+      }
 
-			ul {
-				list-style-type: none;
+      ul {
+        list-style-type: none;
 
-				li {
-					padding-bottom: 5px;
-				}
-			}
-		}
+        li {
+          padding-bottom: 5px;
+        }
+      }
+    }
 
-		p {
-			line-height: 1.5;
-		}
+    p {
+      line-height: 1.5;
+    }
 
-		h5 {
-			font-weight: 400;
-			font-size: 16px;
-			color: #fff;
-			margin-bottom: 10px;
-			padding: 0;
-		}
-	}
+    h5 {
+      font-weight: 400;
+      font-size: 16px;
+      color: #fff;
+      margin-bottom: 10px;
+      padding: 0;
+    }
+  }
 
-	@media (min-width: 768px) {
-		.column {
-			&.col-3 {
-				max-width: 25%;
-			}
+  @media (min-width: 768px) {
+    .column {
+      &.col-3 {
+        max-width: 25%;
+      }
 
-			&-col-4 {
-				max-width: 33%;
-			}
-		}
+      &-col-4 {
+        max-width: 33%;
+      }
+    }
 
-		.container {
-			flex-direction: row;
-			max-width: 720px;
-		}
-	}
-`
+    .container {
+      flex-direction: row;
+      max-width: 720px;
+    }
+  }
+`;
 
 export function dateFromTimeString(time, date) {
-	const [hours, minutes] = time.split(':')
+  const [hours, minutes] = time.split(":");
 
-	return setHours(setMinutes(date || new Date(), parseInt(minutes, 10)), parseInt(hours, 10))
+  return setHours(
+    setMinutes(date || new Date(), parseInt(minutes, 10)),
+    parseInt(hours, 10)
+  );
 }
 
 const useScroll = (cb, updateOn = []) => {
-	React.useEffect(() => {
-		window.addEventListener('scroll', cb)
-		return () => window.removeEventListener('scroll', cb)
-	}, updateOn)
-}
+  React.useEffect(() => {
+    window.addEventListener("scroll", cb);
+    return () => window.removeEventListener("scroll", cb);
+  }, updateOn);
+};
 
 const QuickInfo = () => {
-	const [state, setState] = React.useState({
-		inverted: false
-	})
+  const [state, setState] = React.useState({
+    inverted: false
+  });
 
-	useScroll(() => {
-		if (window.innerWidth < 768) {
-			return
-		}
+  useScroll(() => {
+    if (window.innerWidth < 768) {
+      return;
+    }
 
-		if (window.scrollY > window.innerHeight - 60) {
-			if (!state.inverted) {
-				setState(prev => ({ ...prev, inverted: true }))
-			}
-		} else {
-			if (state.inverted) {
-				setState(prev => ({ ...prev, inverted: false }))
-			}
-		}
-	}, [state.inverted])
+    if (window.scrollY > window.innerHeight - 60) {
+      if (!state.inverted) {
+        setState(prev => ({ ...prev, inverted: true }));
+      }
+    } else {
+      if (state.inverted) {
+        setState(prev => ({ ...prev, inverted: false }));
+      }
+    }
+  }, [state.inverted]);
 
-	return (
-		<QuickInfoWrapper mobile={window.innerWidth < 768} fixed={state.inverted}>
-			<div className="container">
-				<div className="column col-4">
-					<div className="icon">
-						<Icon type="pin" />
-					</div>
-					<div className="info">
-						<h5>514 McKean Avenue</h5>
-						<p>
-							514 McKean Avenue
-							<br />
-							Charleroi, PA 15022
-						</p>
-						<p>724-565-5344</p>
-					</div>
-				</div>
+  return (
+    <QuickInfoWrapper mobile={window.innerWidth < 768} fixed={state.inverted}>
+      <div className="container">
+        <div className="column col-4">
+          <div className="icon">
+            <Icon type="pin" />
+          </div>
+          <div className="info">
+            <h5>607 Broad Avenue</h5>
+            <p>
+              607 Broad Avenue
+              <br />
+              Belle Vernon, PA 15012
+            </p>
+            <p>724-565-5344</p>
+          </div>
+        </div>
 
-				<div className="column col-5">
-					<div className="icon">
-						<Icon type="time" />
-					</div>
-					<div className="info">
-						<h5>Hours of Operation</h5>
-						<ul>
-							<li>Tuesday - Friday 9am - 6pm</li>
-							<li>Saturday: 7am - 3pm</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</QuickInfoWrapper>
-	)
-}
+        <div className="column col-5">
+          <div className="icon">
+            <Icon type="time" />
+          </div>
+          <div className="info">
+            <h5>Hours of Operation</h5>
+            <ul>
+              <li>Tuesday - Friday 9am - 6pm</li>
+              <li>Saturday: 7am - 3pm</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </QuickInfoWrapper>
+  );
+};
 
-export default QuickInfo
+export default QuickInfo;
