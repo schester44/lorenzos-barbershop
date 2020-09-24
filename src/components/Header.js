@@ -192,8 +192,8 @@ class Header extends React.Component {
 					</li>
 
 					<li>
-						<a href="https://neverwait.app/l/lorenzo" target="new" title="Online Check-in" className="main-cta">
-							Online Check-in
+						<a href="https://neverwait.app/l/lorenzo" target="new" title="Book Appointment" className="main-cta">
+							Book Appointment
 						</a>
 					</li>
 				</ul>
