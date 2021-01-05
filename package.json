@@ -4,7 +4,7 @@
 	"private": true,
 	"homepage": "http://laeffects.com",
 	"dependencies": {
-		"axios": "^0.18.0",
+		"axios": "^0.21.1",
 		"date-fns": "^1.29.0",
 		"gh-pages": "^1.2.0",
 		"react": "^16.8.6",
