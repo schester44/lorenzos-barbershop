@@ -25,12 +25,16 @@ const Container = styled("div")`
   }
 
   .main-cta {
-    margin-top: 16px;
     background: rgba(237, 209, 129, 1);
-    padding: 10px 20px;
-    border-radius: 10px;
+    padding: 20px;
+    border-radius: 4px;
     color: black;
-    box-shadow: 0px 3px 10px rgba(32, 32, 32, 0.2);
+    text-decoration: none;
+    display: block;
+    max-width: 320px;
+    font-size: 18px;
+    text-align: center;
+    margin: 16px auto 0 auto;
   }
 `;
 
@@ -40,11 +44,9 @@ const Hours = () => {
       <Container>
         <div className="section">
           <h3>Appointments Only</h3>
-          <h5>Open Tuesday thru Saturday</h5>
-
           <h5>
-            All days are APPOINTMENT ONLY. Book an appointment with us on
-            NeverWait. See our NeverWait page for available times.
+            Open Tuesday thru Saturday by appointment only. See our NeverWait
+            page for available times and to book an appointment.
           </h5>
 
           <a
